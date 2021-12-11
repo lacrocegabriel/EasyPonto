@@ -35,7 +35,12 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Models\Entity.cs" />
+    <Compile Include="Models\Funcionarios\Endereco.cs" />
+    <Compile Include="Models\Funcionarios\Funcionario.cs" />
+    <Compile Include="Models\Pontos\Ponto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
