@@ -35,9 +35,11 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Data\IRepository.cs" />
     <Compile Include="Core\Models\Entity.cs" />
     <Compile Include="Models\Funcionarios\Endereco.cs" />
     <Compile Include="Models\Funcionarios\Funcionario.cs" />
+    <Compile Include="Models\Funcionarios\IFuncionarioRepository.cs" />
     <Compile Include="Models\Funcionarios\TipoFuncionario.cs" />
     <Compile Include="Models\Pontos\Ponto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
