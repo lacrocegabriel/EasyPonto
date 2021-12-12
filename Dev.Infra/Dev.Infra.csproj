@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Context\EasyPontoDbContext.cs" />
+    <Compile Include="Data\Mappings\EnderecoConfig.cs" />
+    <Compile Include="Data\Mappings\FuncionarioConfig.cs" />
+    <Compile Include="Data\Mappings\PontoConfig.cs" />
+    <Compile Include="Data\Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
