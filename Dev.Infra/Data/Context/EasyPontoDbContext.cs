@@ -1,13 +1,8 @@
-﻿using Dev.Business.Models.Funcionarios;
+﻿using System.Data.Entity;
+using Dev.Business.Models.Funcionarios;
 using Dev.Business.Models.Pontos;
 using Dev.Infra.Data.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dev.Infra.Data.Context
 {
@@ -16,6 +11,8 @@ namespace Dev.Infra.Data.Context
 
         public EasyPontoDbContext() : base("DefaultConnection")
         {
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
 
         }
 

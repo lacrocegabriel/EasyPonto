@@ -56,6 +56,10 @@
     <Compile Include="Data\Mappings\FuncionarioConfig.cs" />
     <Compile Include="Data\Mappings\PontoConfig.cs" />
     <Compile Include="Data\Migrations\Configuration.cs" />
+    <Compile Include="Data\Repository\EnderecoRepository.cs" />
+    <Compile Include="Data\Repository\FuncionarioRepository.cs" />
+    <Compile Include="Data\Repository\PontoRepository.cs" />
+    <Compile Include="Data\Repository\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
