@@ -7,7 +7,7 @@ namespace Dev.Business.Models.Funcionarios
     public interface IFuncionarioRepository : IRepository<Funcionario>
     {
         Task<Funcionario> ObterFuncionarioPorEndereco(Guid id);
-        Task<Funcionario> ObterFucionarioPontosEndereco(Guid id);
+        Task<Funcionario> ObterFuncionarioPontosEndereco(Guid id);
 
     }
 }

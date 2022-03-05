@@ -37,6 +37,9 @@ namespace Dev.Infra.Data.Context
             modelBuilder.Configurations.Add(new FuncionarioConfig());
             modelBuilder.Configurations.Add(new EnderecoConfig());
             modelBuilder.Configurations.Add(new PontoConfig());
+
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }

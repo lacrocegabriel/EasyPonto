@@ -10,14 +10,14 @@ namespace Dev.Infra.Data.Repository
 {
     public class FuncionarioRepository : Repository<Funcionario>, IFuncionarioRepository
     {
-        public async Task<Funcionario> ObterFucionarioPontosEndereco(Guid id)
+        public async Task<Funcionario> ObterFuncionarioPorEndereco(Guid id)
         {
             return await Db.Funcionarios.AsNoTracking()
                 .Include(f => f.Endereco)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<Funcionario> ObterFuncionarioPorEndereco(Guid id)
+        public async Task<Funcionario> ObterFuncionarioPontosEndereco(Guid id)
         {
             return await Db.Funcionarios.AsNoTracking()
                 .Include(f => f.Endereco)

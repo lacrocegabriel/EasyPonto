@@ -14,6 +14,5 @@ namespace Dev.Business.Core.Models
         }
         public Guid Id { get; set; }
 
-
     }
 }
