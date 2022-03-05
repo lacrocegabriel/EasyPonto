@@ -2,8 +2,8 @@
 {
     public enum TipoFuncionario
     {
-        PessoaFisica = 1,
-        PessoaJuridica
+        CLT = 1,
+        PJ
 
     }
 }

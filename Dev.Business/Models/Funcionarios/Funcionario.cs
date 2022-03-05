@@ -1,4 +1,5 @@
 ﻿using Dev.Business.Core.Models;
+using Dev.Business.Models.Funcionarios.Validations;
 using Dev.Business.Models.Pontos;
 using System.Collections.Generic;
 
@@ -14,6 +15,14 @@ namespace Dev.Business.Models.Funcionarios
 
         /* EF Relations */
         public ICollection<Ponto> Pontos { get; set; }
+
+        public bool Validacao()
+        {
+            var validacao = new FuncionarioValidation();
+            var resultado = validacao.Validate(this);
+
+            return resultado.IsValid;
+        }
         
 
 
