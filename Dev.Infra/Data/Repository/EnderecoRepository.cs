@@ -9,9 +9,9 @@ namespace Dev.Infra.Data.Repository
 {
     public class EnderecoRepository : Repository<Endereco>, IEnderecoRepository
     {
-        public async Task<Endereco> ObterEnderecoPorFornecedor(Guid fornecedorId)
+        public async Task<Endereco> ObterEnderecoPorFuncionario(Guid funcionarioId)
         {
-            return await ObterPorId(fornecedorId);
+            return await ObterPorId(funcionarioId);
         }
     }
 }

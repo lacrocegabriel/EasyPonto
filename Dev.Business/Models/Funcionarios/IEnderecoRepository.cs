@@ -6,7 +6,7 @@ namespace Dev.Business.Models.Funcionarios
 {
     public interface IEnderecoRepository : IRepository<Endereco>
     {
-        Task<Endereco> ObterEnderecoPorFornecedor(Guid fornecedorId);
+        Task<Endereco> ObterEnderecoPorFuncionario(Guid funcionarioId);
 
     }
 }
