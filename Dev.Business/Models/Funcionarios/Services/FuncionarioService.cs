@@ -1,4 +1,5 @@
-﻿using Dev.Business.Core.Services;
+﻿using Dev.Business.Core.Notifications;
+using Dev.Business.Core.Services;
 using Dev.Business.Models.Funcionarios.Validations;
 using System;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace Dev.Business.Models.Funcionarios.Services
         private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IEnderecoRepository _enderecoRepository;
 
-        public FuncionarioService(IFuncionarioRepository funcionarioRepository, IEnderecoRepository enderecoRepository)
+        public FuncionarioService(IFuncionarioRepository funcionarioRepository,
+                                  IEnderecoRepository enderecoRepository,
+                                  INotificador notificador) : base(notificador)
         {
             _funcionarioRepository = funcionarioRepository;
             _enderecoRepository = enderecoRepository;
@@ -40,7 +43,11 @@ namespace Dev.Business.Models.Funcionarios.Services
         {
             var funcionario = await _funcionarioRepository.ObterFuncionarioPontosEndereco(id);
 
-            if (funcionario.Pontos.Any()) return;
+            if (funcionario.Pontos.Any())
+            {
+                Notificar("O funcionario possui pontos cadastrados");
+                return;
+            }
 
             if(funcionario.Endereco != null)
             {
@@ -62,7 +69,10 @@ namespace Dev.Business.Models.Funcionarios.Services
             var funcionarioAtual = await _funcionarioRepository.Buscar(f => f.Documento == funcionario.Documento
             && f.Id != funcionario.Id);
 
-            return funcionarioAtual.Any();
+            if (!funcionarioAtual.Any()) return false;
+
+            Notificar("Já existe um funcionario com este documento informado");
+            return true;
         }
 
         public void Dispose()

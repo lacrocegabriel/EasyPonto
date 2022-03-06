@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Dev.Business.Core.Notifications;
 using Dev.Business.Core.Services;
 using Dev.Business.Models.Pontos.Validations;
 
@@ -9,7 +10,8 @@ namespace Dev.Business.Models.Pontos.Services
     {
         private readonly IPontoRepository _pontoRepository;
 
-        public PontoService(IPontoRepository pontoRepository)
+        public PontoService(IPontoRepository pontoRepository, 
+                            INotificador notificador) : base(notificador)
         {
             _pontoRepository = pontoRepository;
         }
