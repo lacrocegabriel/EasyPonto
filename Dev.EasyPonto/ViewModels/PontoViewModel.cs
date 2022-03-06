@@ -26,7 +26,5 @@ namespace Dev.EasyPonto.ViewModels
 
         public IEnumerable<FuncionarioViewModel> Funcionarios { get; set; }
 
-
-
     }
 }

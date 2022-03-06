@@ -14,10 +14,10 @@ namespace Dev.EasyPonto.Controllers
     {
         private readonly IFuncionarioService _funcioarioService;
 
-        public FuncionariosController()
-        {
-            _funcioarioService = new FuncionarioService(new FuncionarioRepository(), new EnderecoRepository());
-        }
+        //public FuncionariosController()
+        //{
+        //    _funcioarioService = new FuncionarioService(new FuncionarioRepository(), new EnderecoRepository());
+        //}
 
         public async Task<ActionResult> Index()
         {
