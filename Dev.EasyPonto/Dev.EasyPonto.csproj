@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FuncionariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -254,6 +255,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dev.Business\Dev.Business.csproj">
+      <Project>{6bffb344-6d2d-4ef7-b4c0-329a2be2eddd}</Project>
+      <Name>Dev.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dev.Infra\Dev.Infra.csproj">
       <Project>{ba096ba7-fc26-4b30-adc2-90bda009fd21}</Project>
       <Name>Dev.Infra</Name>

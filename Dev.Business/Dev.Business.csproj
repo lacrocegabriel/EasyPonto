@@ -59,16 +59,21 @@
   <ItemGroup>
     <Compile Include="Core\Data\IRepository.cs" />
     <Compile Include="Core\Models\Entity.cs" />
+    <Compile Include="Core\Services\BaseService.cs" />
     <Compile Include="Core\Validations\Documentos\ValidacaoDocs.cs" />
     <Compile Include="Models\Funcionarios\Endereco.cs" />
     <Compile Include="Models\Funcionarios\Funcionario.cs" />
     <Compile Include="Models\Funcionarios\IEnderecoRepository.cs" />
     <Compile Include="Models\Funcionarios\IFuncionarioRepository.cs" />
+    <Compile Include="Models\Funcionarios\Services\FuncionarioService.cs" />
+    <Compile Include="Models\Funcionarios\Services\IFuncionarioService.cs" />
     <Compile Include="Models\Funcionarios\TipoFuncionario.cs" />
     <Compile Include="Models\Funcionarios\Validations\EnderecoValidation.cs" />
     <Compile Include="Models\Funcionarios\Validations\FuncionarioValidation.cs" />
     <Compile Include="Models\Pontos\IPontoRepository.cs" />
     <Compile Include="Models\Pontos\Ponto.cs" />
+    <Compile Include="Models\Pontos\Services\IPontoService.cs" />
+    <Compile Include="Models\Pontos\Services\PontoService.cs" />
     <Compile Include="Models\Pontos\Validations\PontoValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
