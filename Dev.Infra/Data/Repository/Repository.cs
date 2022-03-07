@@ -15,9 +15,9 @@ namespace Dev.Infra.Data.Repository
         protected readonly EasyPontoDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        protected Repository()
+        protected Repository(EasyPontoDbContext db)
         {
-            Db = new EasyPontoDbContext();
+            Db = db;
             DbSet = Db.Set<TEntity>();
 
         }

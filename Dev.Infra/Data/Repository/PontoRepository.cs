@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dev.Infra.Data.Context;
 
 namespace Dev.Infra.Data.Repository
 {
     public class PontoRepository : Repository<Ponto>, IPontoRepository
     {
+
+        public PontoRepository(EasyPontoDbContext context) : base(context) { }
+
         public async Task<Ponto> ObterPontoFuncionario(Guid id)
         {
             return await Db.Pontos.AsNoTracking()

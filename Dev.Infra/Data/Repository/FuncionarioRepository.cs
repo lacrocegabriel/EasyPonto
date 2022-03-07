@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Dev.Business.Models.Funcionarios;
 using System.Data.Entity;
+using Dev.Infra.Data.Context;
 
 namespace Dev.Infra.Data.Repository
 {
     public class FuncionarioRepository : Repository<Funcionario>, IFuncionarioRepository
     {
+        public FuncionarioRepository(EasyPontoDbContext context) : base(context) { }
+
         public async Task<Funcionario> ObterFuncionarioPorEndereco(Guid id)
         {
             return await Db.Funcionarios.AsNoTracking()
