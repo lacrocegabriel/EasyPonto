@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Dev.EasyPonto.App_Start;
 using Dev.EasyPonto.ViewModels;
 using Dev.Business.Models.Pontos;
 using Dev.Business.Models.Pontos.Services;
@@ -15,9 +16,12 @@ namespace Dev.EasyPonto.Controllers
         private readonly IPontoService _pontoService;
         private readonly IMapper _mapper;
 
-        public PontosController()
+        public PontosController(IPontoRepository pontoRepository,
+            IPontoService pontoService, IMapper mapper)
         {
-            
+            _pontoRepository = pontoRepository;
+            _pontoService = pontoService;
+            _mapper = mapper;
 
         }
 
