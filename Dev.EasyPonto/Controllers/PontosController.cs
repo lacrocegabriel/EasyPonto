@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Dev.EasyPonto.App_Start;
 using Dev.EasyPonto.ViewModels;
 using Dev.Business.Models.Pontos;
 using Dev.Business.Models.Pontos.Services;
@@ -65,7 +64,7 @@ namespace Dev.EasyPonto.Controllers
             return View(pontoViewModel);
         }
 
-        [Route("editar-ponto/{id:guid")]
+        [Route("editar-ponto/{id:guid}")]
         [HttpGet]
         public async Task<ActionResult> Edit(Guid id)
         {
@@ -78,7 +77,7 @@ namespace Dev.EasyPonto.Controllers
             return View(pontoViewModel);
         }
 
-        [Route("editar-ponto/{id:guid")]
+        [Route("editar-ponto/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(PontoViewModel pontoViewModel)
@@ -92,7 +91,7 @@ namespace Dev.EasyPonto.Controllers
             return View(pontoViewModel);
         }
 
-        [Route("excluir-ponto/{id:guid")]
+        [Route("excluir-ponto/{id:guid}")]
         [HttpGet]
         public async Task<ActionResult> Delete(Guid id)
         {
@@ -105,7 +104,7 @@ namespace Dev.EasyPonto.Controllers
             return View(pontoViewModel);
         }
 
-        [Route("excluir-ponto/{id:guid")]
+        [Route("excluir-ponto/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)

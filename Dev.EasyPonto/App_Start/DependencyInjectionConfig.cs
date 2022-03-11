@@ -11,7 +11,7 @@ using SimpleInjector.Integration.Web.Mvc;
 using System.Reflection;
 using System.Web.Mvc;
 
-namespace Dev.EasyPonto.App_Start
+namespace Dev.EasyPonto
 {
     public class DependencyInjectionConfig
     {

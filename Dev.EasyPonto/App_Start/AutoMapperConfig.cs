@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Dev.EasyPonto.App_Start
+namespace Dev.EasyPonto
 {
     public class AutoMapperConfig
     {
