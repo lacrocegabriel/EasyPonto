@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace Dev.EasyPonto.Controllers
 {
-    public class PontosController : Controller
+    public class PontosController : BaseController
     {
         private readonly IPontoRepository _pontoRepository;
         private readonly IPontoService _pontoService;
