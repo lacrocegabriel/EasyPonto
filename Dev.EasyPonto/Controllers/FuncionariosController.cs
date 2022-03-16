@@ -29,6 +29,18 @@ namespace Dev.EasyPonto.Controllers
             return View(_mapper.Map<IEnumerable<FuncionarioViewModel>>(await _funcionarioRepository.ObterTodos()));
         }
 
+        [Route("dados-do-funcionario/{id:guid}")]
+        public async Task<ActionResult> Details(Guid id)
+        {
+            var funcionarioViewModel = await ObterFuncionarioEndereco(id);
+
+            if(funcionarioViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(funcionarioViewModel);
+        }
+
         [Route("novo-funcionario")]
         public ActionResult Create()
         {
