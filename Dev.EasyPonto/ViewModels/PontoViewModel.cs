@@ -22,9 +22,9 @@ namespace Dev.EasyPonto.ViewModels
         [Required(ErrorMessage = "A data e horario devem ser informadas")]
         public DateTime DataPonto { get; set; }
 
-        public FuncionarioViewModel Funcionario { get; set; }
+        //public FuncionarioViewModel Funcionario { get; set; }
 
-        public IEnumerable<FuncionarioViewModel> Funcionarios { get; set; }
+        //public IEnumerable<FuncionarioViewModel> Funcionarios { get; set; }
 
     }
 }
