@@ -1,7 +1,7 @@
 function BuscaCep() {
     $(document).ready(function () {
 
-        function limpa_formulário_cep() {
+        function limpa_formulario_cep() {
             // Limpa valores do formulário de cep.
             $("#Endereco_Logradouro").val("");
             $("#Endereco_Bairro").val("");
@@ -31,7 +31,7 @@ function BuscaCep() {
                     $("#Endereco_Estado").val("...");
 
                     //Consulta o webservice viacep.com.br/
-                    $j.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+                    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
 
                         if (!("erro" in dados)) {
                             //Atualiza os campos com os valores da consulta.
@@ -43,20 +43,20 @@ function BuscaCep() {
                         } //end if.
                         else {
                             //CEP pesquisado não foi encontrado.
-                            limpa_formulário_cep();
+                            limpa_formulario_cep();
                             alert("CEP não encontrado.");
                         }
                     });
                 } //end if.
                 else {
                     //cep é inválido.
-                    limpa_formulário_cep();
+                    limpa_formulario_cep();
                     alert("Formato de CEP inválido.");
                 }
             } //end if.
             else {
                 //cep sem valor, limpa formulário.
-                limpa_formulário_cep();
+                limpa_formulario_cep();
             }
         });
     });
