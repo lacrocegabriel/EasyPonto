@@ -197,6 +197,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PontosController.cs" />
+    <Compile Include="Extensions\RazorExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,10 +278,11 @@
     <Content Include="Views\Funcionarios\Delete.cshtml" />
     <Content Include="Views\Funcionarios\Details.cshtml" />
     <Content Include="Views\Funcionarios\_Endereco.cshtml" />
+    <Content Include="Views\Funcionarios\_DetalhesEndereco.cshtml" />
+    <Content Include="Views\Funcionarios\_AtualizarEndereco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

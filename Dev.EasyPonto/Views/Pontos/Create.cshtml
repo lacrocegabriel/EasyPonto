@@ -18,23 +18,48 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FuncionarioId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FuncionarioId, new { htmlAttributes = new { @class = "form-control" } })
+                
+                @Html.DropDownListFor(model => model.FuncionarioId,
+                new SelectList(Model.Funcionarios, "Id", "Nome"),
+                "Selecione o Funcionario", new {@class = "form-control"})
+                
                 @Html.ValidationMessageFor(model => model.FuncionarioId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div  class="form-group">
-            
-            @Html.LabelFor(model => model.DataPonto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPonto , new { htmlAttributes = new { @class = "form-control",@type= "datetime" } })
-                @Html.ValidationMessageFor(model => model.DataPonto, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.DataPonto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <script type="text/javascript">
+                    function startTime() {
+                        var today = new Date();
+                        var h = today.getHours();
+                        var m = today.getMinutes();
+                        var s = today.getSeconds();
+                        // adicione um zero na frente de números<10
+                        m = checkTime(m);
+                        s = checkTime(s);
+                        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+                        t = setTimeout('startTime()', 500);
+                    }
+                    function checkTime(i) {
+                        if (i < 10) {
+                            i = "0" + i;
+                        }
+                        return i;
+                    }
+                </script>
+                <body onload="startTime()">
+                    <div id="txt"></div>
+                </body>
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Registrar Ponto" class="btn btn-default" />
             </div>
         </div>
     </div>

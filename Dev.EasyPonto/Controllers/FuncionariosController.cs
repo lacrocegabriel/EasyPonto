@@ -123,6 +123,49 @@ namespace Dev.EasyPonto.Controllers
             return View("Index");
         }
 
+        [Route ("obter-endereco-funcionario/{id:guid}")]
+        public async Task<ActionResult> ObterEndereco(Guid id)
+        {
+            var funcionario = await ObterFuncionarioEndereco(id);
+
+            if (funcionario == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("_DetalhesEndereco", funcionario);
+        }
+        
+        [Route ("atualizar-endereco-funcionario/{id:guid}")]
+        [HttpGet]
+        public async Task<ActionResult> AtualizarEndereco(Guid id)
+        {
+            var funcionario = await ObterFuncionarioEndereco(id);
+
+            if (funcionario == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_AtualizarEndereco", new FuncionarioViewModel { Endereco = funcionario.Endereco });
+        }
+
+        [Route("atualizar-endereco-funcionario/{id:guid}")]
+        [HttpPost]
+        public async Task<ActionResult> AtualizarEndereco(FuncionarioViewModel funcionarioViewModel)
+        {
+            ModelState.Remove("Nome");
+            ModelState.Remove("Documento");
+
+            if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", funcionarioViewModel);
+
+            await _funcionarioService.AtualizarEndereco(_mapper.Map<Endereco>(funcionarioViewModel.Endereco)); ;
+
+            var url = Url.Action("ObterEndereco", "Funcionarios", new { id = funcionarioViewModel.Endereco.FuncionarioId });
+
+            return Json(new { success = true, url });
+        }
+
+        
 
         private async Task<FuncionarioViewModel> ObterFuncionarioEndereco (Guid id)
         {

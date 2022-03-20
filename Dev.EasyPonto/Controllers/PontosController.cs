@@ -6,20 +6,25 @@ using Dev.EasyPonto.ViewModels;
 using Dev.Business.Models.Pontos;
 using Dev.Business.Models.Pontos.Services;
 using AutoMapper;
+using Dev.Business.Models.Funcionarios;
 
 namespace Dev.EasyPonto.Controllers
 {
     public class PontosController : BaseController
     {
         private readonly IPontoRepository _pontoRepository;
+        private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IPontoService _pontoService;
         private readonly IMapper _mapper;
 
         public PontosController(IPontoRepository pontoRepository,
-            IPontoService pontoService, IMapper mapper)
+            IPontoService pontoService, 
+            IFuncionarioRepository funcionarioRepository,
+            IMapper mapper)
         {
             _pontoRepository = pontoRepository;
             _pontoService = pontoService;
+            _funcionarioRepository = funcionarioRepository;
             _mapper = mapper;
 
         }
@@ -27,7 +32,7 @@ namespace Dev.EasyPonto.Controllers
         [Route ("lista-de-pontos")]
         public async Task<ActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<PontoViewModel>>(await _pontoRepository.ObterTodos()));
+            return View(_mapper.Map<IEnumerable<PontoViewModel>>(await _pontoRepository.ObterPontosFuncionarios()));
         }
 
         [Route ("dados-do-ponto/{id:guid}")]
@@ -44,9 +49,11 @@ namespace Dev.EasyPonto.Controllers
 
         [Route("novo-ponto")]
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var pontoViewModel = await PopularFuncionario(new PontoViewModel());
+
+            return View(pontoViewModel);
         }
 
         [Route("novo-ponto")]
@@ -54,6 +61,10 @@ namespace Dev.EasyPonto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PontoViewModel pontoViewModel)
         {
+            pontoViewModel = await PopularFuncionario(pontoViewModel);
+
+            pontoViewModel.DataPonto = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 await _pontoService.Adicionar(_mapper.Map<Ponto>(pontoViewModel));
@@ -124,7 +135,13 @@ namespace Dev.EasyPonto.Controllers
         private async Task<PontoViewModel> ObterPontos(Guid id)
         {
             var ponto = _mapper.Map<PontoViewModel>(await _pontoRepository.ObterPontoFuncionario(id));
-            
+            ponto.Funcionarios = _mapper.Map<IEnumerable<FuncionarioViewModel>>(await _funcionarioRepository.ObterTodos());
+            return ponto;
+        }
+
+        private async Task<PontoViewModel> PopularFuncionario(PontoViewModel ponto)
+        {
+            ponto.Funcionarios = _mapper.Map<IEnumerable<FuncionarioViewModel>>(await _funcionarioRepository.ObterTodos());
             return ponto;
         }
 

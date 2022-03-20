@@ -63,67 +63,65 @@ function BuscaCep() {
 
 }
 
+function SetModal() {
+
+    $(document).ready(function () {
+        $(function () {
+            $.ajaxSetup({ cache: false });
+
+            $("a[data-modal]").on("click",
+                function (e) {
+                    $('#myModalContent').load(this.href,
+                        function () {
+                            $('#myModal').modal({
+                                keyboard: true
+                            },
+                                'show');
+                            bindForm(this);
+                        });
+                    return false;
+                }); 
+        });
+    });
+}
+
+function bindForm(dialog) {
+    $('form', dialog).submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    $('#myModal').modal('hide');
+                    $('#EnderecoTarget').load(result.url);
+                } else {
+                    $('#myModalContent').html(result);
+                    bindForm(dialog);
+                }
+            }
+        });
+
+        SetModal();
+        return false
+    });
+}
 
 
-
-//function BuscaCep() {
-//    $(document).ready(function () {
-
-//        function limpa_formulário_cep() {
-//            //Limpa valores do formulário de cep
-//            $("#Endereco_Logradouro").val("");
-//            $("#Endereco_Bairro").val("");
-//            $("#Endereco_Cidade").val("");
-//            $("#Endereco_Estado").val("");
-//        }
-
-//        //Quando o campo cerp perde o foco
-//        $("#Endereco_Cep").blur(function () {
-
-//            //Nova variável "cep" somente com digitos
-//            var cep = $(this).val().replace(/\D/g, '');
-
-//            //Verifica se o campo cep possui valor informado
-//            if (cep != "") {
-
-//                //Expessão regular para validar o cep
-//                var validacep = /^[0-9]{8}$/;
-
-//                //Valida formato do cep
-//                if (validacep.test(cep)) {
-
-
-//                    $("#Endereco_Logradouro").val("...");
-//                    $("#Endereco_Bairro").val("...");
-//                    $("#Endereco_Cidade").val("...");
-//                    $("#Endereco_Estado").val("...");
-
-//                    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?",
-//                        function (dados) {
-
-//                            if (!("erro" in dados)) {
-//                                $("#Endereco_Logradouro").val(dados.logradouro);
-//                                $("#Endereco_Bairro").val(dados.bairro);
-//                                $("#Endereco_Cidade").val(dados.localidade);
-//                                $("#Endereco_Estado").val(dados.uf);
-//                            }
-//                            else {
-//                                limpa_formulário_cep();
-//                                alert("Cep não encontrado.");
-//                            }
-//                        });
-                    
-//                }//end If.
-//                else {
-//                    //cep é invalido
-//                    limpa_formulário_cep();
-//                    alert("Cep não encontrado.");
-//                }
-//            }//end if
-//            else {
-//                //cep sem valor, limpa formuário.
-//                limpa_formulário_cep();
-//            }
-//        });
-//    });
+//function startTime() {
+//    var today = new Date();
+//    var h = today.getHours();
+//    var m = today.getMinutes();
+//    var s = today.getSeconds();
+//    // adicione um zero na frente de números<10
+//    m = checkTime(m);
+//    s = checkTime(s);
+//    document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+//    t = setTimeout('startTime()', 500);
+//}
+//function checkTime(i) {
+//    if (i < 10) {
+//        i = "0" + i;
+//    }
+//    return i;
 //}
