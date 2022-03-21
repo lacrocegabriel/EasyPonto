@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Dev.EasyPonto.Extensions;
 
 namespace Dev.EasyPonto.ViewModels
 {
@@ -19,6 +20,7 @@ namespace Dev.EasyPonto.ViewModels
         [DisplayName("Funcionario")]
         public Guid FuncionarioId { get; set; }
 
+        [Data]
         [Required(ErrorMessage = "A data e horario devem ser informadas")]
         public DateTime DataPonto { get; set; }
 
