@@ -282,6 +282,7 @@
     <Content Include="Views\Funcionarios\_Endereco.cshtml" />
     <Content Include="Views\Funcionarios\_DetalhesEndereco.cshtml" />
     <Content Include="Views\Funcionarios\_AtualizarEndereco.cshtml" />
+    <Content Include="Views\Shared\_ErrorSumary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

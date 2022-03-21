@@ -22,6 +22,10 @@ namespace Dev.Business.Models.Funcionarios.Services
 
         public async Task Adicionar(Funcionario funcionario)
         {
+            // Limitações do EF 6 fora da convenção
+            funcionario.Endereco.Id = funcionario.Id;
+            funcionario.Endereco.Funcionario = funcionario;
+
             if (!ExecutarValidacao(new FuncionarioValidation(), funcionario)
                 || !ExecutarValidacao(new EnderecoValidation(), funcionario.Endereco)) return;
 

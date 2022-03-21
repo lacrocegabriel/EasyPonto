@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using Dev.Business.Core.Notifications;
 using Dev.Business.Models.Funcionarios;
 using Dev.Business.Models.Funcionarios.Services;
 using Dev.EasyPonto.ViewModels;
 
+
 namespace Dev.EasyPonto.Controllers
 {
-    public class FuncionariosController : Controller
+    public class FuncionariosController : BaseController
     {
         private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IFuncionarioService _funcionarioService;
         private readonly IMapper _mapper;
 
 
-        public FuncionariosController(IFuncionarioRepository funcionarioRepository, IMapper mapper, IFuncionarioService funcionarioService)
+        public FuncionariosController(IFuncionarioRepository funcionarioRepository, 
+                                      IMapper mapper, 
+                                      IFuncionarioService funcionarioService,
+                                      INotificador notificador) : base(notificador)
         {
             _funcionarioRepository = funcionarioRepository;
             _mapper = mapper;
@@ -58,6 +63,10 @@ namespace Dev.EasyPonto.Controllers
 
             var funcionario = _mapper.Map<Funcionario>(funcionarioViewModel);
             await _funcionarioService.Adicionar(funcionario);
+
+            if (!OperacaoValida()) return View(funcionarioViewModel);
+            
+            ViewBag.Sucesso = "Funcionario Cadastrado";
 
             return RedirectToAction("Index");
         }

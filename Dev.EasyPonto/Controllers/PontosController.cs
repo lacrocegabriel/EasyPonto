@@ -7,6 +7,7 @@ using Dev.Business.Models.Pontos;
 using Dev.Business.Models.Pontos.Services;
 using AutoMapper;
 using Dev.Business.Models.Funcionarios;
+using Dev.Business.Core.Notifications;
 
 namespace Dev.EasyPonto.Controllers
 {
@@ -20,13 +21,13 @@ namespace Dev.EasyPonto.Controllers
         public PontosController(IPontoRepository pontoRepository,
             IPontoService pontoService, 
             IFuncionarioRepository funcionarioRepository,
-            IMapper mapper)
+            IMapper mapper,
+            INotificador notificador) : base (notificador)
         {
             _pontoRepository = pontoRepository;
             _pontoService = pontoService;
             _funcionarioRepository = funcionarioRepository;
             _mapper = mapper;
-
         }
 
         [Route ("lista-de-pontos")]

@@ -3,7 +3,7 @@
     public enum TipoFuncionario
     {
         CLT = 1,
-        PJ
+        PJ = 2
 
     }
 }

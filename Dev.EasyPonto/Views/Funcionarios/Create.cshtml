@@ -15,7 +15,7 @@
 
     <div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Partial("_ErrorSumary")
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
