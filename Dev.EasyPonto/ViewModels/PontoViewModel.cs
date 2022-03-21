@@ -20,7 +20,7 @@ namespace Dev.EasyPonto.ViewModels
         [DisplayName("Funcionario")]
         public Guid FuncionarioId { get; set; }
 
-        [Data]
+        //[Data]
         [Required(ErrorMessage = "A data e horario devem ser informadas")]
         public DateTime DataPonto { get; set; }
 

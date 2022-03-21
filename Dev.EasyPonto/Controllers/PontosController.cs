@@ -93,6 +93,8 @@ namespace Dev.EasyPonto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(PontoViewModel pontoViewModel)
         {
+            pontoViewModel = await PopularFuncionario(pontoViewModel);
+
             if (ModelState.IsValid)
             {
                 await _pontoService.Atualizar(_mapper.Map<Ponto>(pontoViewModel));
