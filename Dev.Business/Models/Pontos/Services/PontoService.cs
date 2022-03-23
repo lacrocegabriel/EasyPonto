@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Dev.Business.Core.Notifications;
 using Dev.Business.Core.Services;
@@ -20,12 +21,18 @@ namespace Dev.Business.Models.Pontos.Services
         {
             if (!ExecutarValidacao(new PontoValidation(), ponto)) return;
 
+            if (await ExistePontoAnterior(ponto)) return;
+
             await _pontoRepository.Adicionar(ponto);
         }
 
         public async Task Atualizar(Ponto ponto)
         {
             if (!ExecutarValidacao(new PontoValidation(), ponto)) return;
+
+            if (await ExistePontoAnterior(ponto)) return;
+
+            //if (await NomeFuncionarioAlterado(ponto.Id, ponto)) return;
 
             await _pontoRepository.Atualizar(ponto);
         }
@@ -34,6 +41,45 @@ namespace Dev.Business.Models.Pontos.Services
         {
             await _pontoRepository.Remover(id);
         }
+
+        private async Task<bool> ExistePontoAnterior(Ponto ponto)
+        {
+            var pontoAtual = await _pontoRepository.Buscar(p => p.DataPonto >= ponto.DataPonto && p.Id != ponto.Id && p.FuncionarioId == ponto.FuncionarioId);
+
+            if (pontoAtual.Any())
+            {
+                
+                return true;
+            }
+                
+
+            
+            return false;
+        }
+
+        //private async Task<bool> NomeFuncionarioAlterado(Guid id, Ponto ponto)
+        //{
+
+        //    var pontoAtual = await _pontoRepository.ObterPorId(id);
+
+        //    try
+        //    {
+        //        if (pontoAtual.Funcionario.Nome != ponto.Funcionario.Nome)
+        //        {
+        //            Notificar("O funcionário não pode ser alterado");
+        //            return true;
+        //        }
+        //    }
+        //    catch 
+        //    (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+                      
+
+        //    return false;
+
+        //}
 
         public void Dispose()
         {

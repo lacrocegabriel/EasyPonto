@@ -198,6 +198,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PontosController.cs" />
+    <Compile Include="Extensions\CustomAuthorization.cs" />
     <Compile Include="Extensions\DataAttribute.cs" />
     <Compile Include="Extensions\RazorExtensions.cs" />
     <Compile Include="Global.asax.cs">

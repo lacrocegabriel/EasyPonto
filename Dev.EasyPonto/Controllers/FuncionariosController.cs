@@ -7,10 +7,11 @@ using Dev.Business.Core.Notifications;
 using Dev.Business.Models.Funcionarios;
 using Dev.Business.Models.Funcionarios.Services;
 using Dev.EasyPonto.ViewModels;
-
+using static Dev.EasyPonto.Extensions.CustomAuthorization;
 
 namespace Dev.EasyPonto.Controllers
 {
+    
     public class FuncionariosController : BaseController
     {
         private readonly IFuncionarioRepository _funcionarioRepository;
@@ -46,12 +47,14 @@ namespace Dev.EasyPonto.Controllers
             return View(funcionarioViewModel);
         }
 
+        
         [Route("novo-funcionario")]
         public ActionResult Create()
         {
             return View();
         }
 
+        
         [Route ("novo-funcionario")]
         [HttpPost]
         public async Task<ActionResult> Create (FuncionarioViewModel funcionarioViewModel)

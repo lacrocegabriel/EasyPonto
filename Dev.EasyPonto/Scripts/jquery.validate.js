@@ -1609,7 +1609,7 @@ return $;
 //	return this.optional(element) || /-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
 //};
 
-//$.validator.methods.date = function (value, element) {
-//	var date = value.split("/");
-//	return this.optional(element) || !/Invalid|NaN/.test(new Date(date[2], date[1], date[0], date[3], date[4], date[5].toString()));
-//};
+$.validator.methods.date = function (value, element) {
+	var date = value.split("/");
+	return this.optional(element) || !/Invalid|NaN/.test(new Date(date[2], date[1], date[0], date[3], date[4], date[5]);
+};

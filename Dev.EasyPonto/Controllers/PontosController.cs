@@ -69,11 +69,13 @@ namespace Dev.EasyPonto.Controllers
             if (ModelState.IsValid)
             {
                 await _pontoService.Adicionar(_mapper.Map<Ponto>(pontoViewModel));
-                
-                return RedirectToAction("Index");
+
+                if (!OperacaoValida()) return View(pontoViewModel);
             }
 
-            return View(pontoViewModel);
+            
+
+            return RedirectToAction("Index");
         }
 
         [Route("editar-ponto/{id:guid}")]
@@ -96,13 +98,16 @@ namespace Dev.EasyPonto.Controllers
         {
             pontoViewModel = await PopularFuncionario(pontoViewModel);
 
+            
             if (ModelState.IsValid)
             {
                 await _pontoService.Atualizar(_mapper.Map<Ponto>(pontoViewModel));
 
-                return RedirectToAction("Index");
+                if (!OperacaoValida()) return View(pontoViewModel);
+
             }
-            return View(pontoViewModel);
+            
+            return RedirectToAction("Index");
         }
 
         [Route("excluir-ponto/{id:guid}")]
