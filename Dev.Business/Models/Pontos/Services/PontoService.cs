@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dev.Business.Core.Notifications;
 using Dev.Business.Core.Services;
+using Dev.Business.Models.Funcionarios;
 using Dev.Business.Models.Pontos.Validations;
 
 namespace Dev.Business.Models.Pontos.Services
@@ -10,8 +11,10 @@ namespace Dev.Business.Models.Pontos.Services
     public class PontoService : BaseService, IPontoService
     {
         private readonly IPontoRepository _pontoRepository;
+        private readonly IFuncionarioRepository _funcionarioRepository;
 
-        public PontoService(IPontoRepository pontoRepository, 
+        public PontoService(IPontoRepository pontoRepository,
+                            IFuncionarioRepository funcionarioRepository,
                             INotificador notificador) : base(notificador)
         {
             _pontoRepository = pontoRepository;
@@ -20,8 +23,6 @@ namespace Dev.Business.Models.Pontos.Services
         public async Task Adicionar(Ponto ponto)
         {
             if (!ExecutarValidacao(new PontoValidation(), ponto)) return;
-
-            if (await ExistePontoAnterior(ponto)) return;
 
             await _pontoRepository.Adicionar(ponto);
         }
@@ -32,9 +33,8 @@ namespace Dev.Business.Models.Pontos.Services
 
             if (await ExistePontoAnterior(ponto)) return;
 
-            //if (await NomeFuncionarioAlterado(ponto.Id, ponto)) return;
-
             await _pontoRepository.Atualizar(ponto);
+
         }
 
         public async Task Remover(Guid id)
@@ -44,42 +44,27 @@ namespace Dev.Business.Models.Pontos.Services
 
         private async Task<bool> ExistePontoAnterior(Ponto ponto)
         {
-            var pontoAtual = await _pontoRepository.Buscar(p => p.DataPonto >= ponto.DataPonto && p.Id != ponto.Id && p.FuncionarioId == ponto.FuncionarioId);
+            var pontoAtual = await _pontoRepository.ObterPorId(ponto.Id);
 
-            if (pontoAtual.Any())
+
+            if (ponto.DataPonto >= pontoAtual.DataPonto)
             {
-                
-                return true;
+                var pontos = await _pontoRepository.Buscar(p => p.DataPonto >= ponto.DataPonto && p.Id != ponto.Id && p.FuncionarioId == ponto.FuncionarioId);
+                Notificar("Operação não permitida! Há um ou mais pontos com data superior a informada!");
+                if (pontos.Any()) return true;
             }
+            else
+            {
+                var pontos = await _pontoRepository.Buscar(p => p.DataPonto <= pontoAtual.DataPonto && p.Id != ponto.Id && p.FuncionarioId == ponto.FuncionarioId);
                 
-
-            
+                if (pontos.Where(p => p.DataPonto > ponto.DataPonto).Any())
+                {
+                    Notificar("Operação não permitida! Há um ou mais pontos com data inferior a informada!");
+                    return true;
+                }
+            }
             return false;
         }
-
-        //private async Task<bool> NomeFuncionarioAlterado(Guid id, Ponto ponto)
-        //{
-
-        //    var pontoAtual = await _pontoRepository.ObterPorId(id);
-
-        //    try
-        //    {
-        //        if (pontoAtual.Funcionario.Nome != ponto.Funcionario.Nome)
-        //        {
-        //            Notificar("O funcionário não pode ser alterado");
-        //            return true;
-        //        }
-        //    }
-        //    catch 
-        //    (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-                      
-
-        //    return false;
-
-        //}
 
         public void Dispose()
         {

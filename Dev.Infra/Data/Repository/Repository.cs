@@ -45,7 +45,10 @@ namespace Dev.Infra.Data.Repository
 
         public virtual async Task Atualizar(TEntity entity)
         {
-            Db.Entry(entity).State = EntityState.Modified;
+            var entityInDb = await DbSet.FindAsync(entity.Id);
+
+            Db.Entry(entityInDb).CurrentValues.SetValues(entity);
+            Db.Entry(entityInDb).State = EntityState.Modified;
             await SaveChanges();
         }
 

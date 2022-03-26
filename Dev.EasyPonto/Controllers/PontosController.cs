@@ -52,7 +52,7 @@ namespace Dev.EasyPonto.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var pontoViewModel = await PopularFuncionario(new PontoViewModel());
+            var pontoViewModel = await PopularFuncionarios(new PontoViewModel());
 
             return View(pontoViewModel);
         }
@@ -62,7 +62,7 @@ namespace Dev.EasyPonto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PontoViewModel pontoViewModel)
         {
-            pontoViewModel = await PopularFuncionario(pontoViewModel);
+            pontoViewModel = await PopularFuncionarios(pontoViewModel);
 
             pontoViewModel.DataPonto = DateTime.Now;
 
@@ -73,8 +73,6 @@ namespace Dev.EasyPonto.Controllers
                 if (!OperacaoValida()) return View(pontoViewModel);
             }
 
-            
-
             return RedirectToAction("Index");
         }
 
@@ -82,7 +80,10 @@ namespace Dev.EasyPonto.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid id)
         {
+
             var pontoViewModel = await ObterPontos(id);
+
+            
 
             if (pontoViewModel == null)
             {
@@ -96,9 +97,10 @@ namespace Dev.EasyPonto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(PontoViewModel pontoViewModel)
         {
-            pontoViewModel = await PopularFuncionario(pontoViewModel);
+            pontoViewModel = await PopularFuncionarios(pontoViewModel);
+            pontoViewModel = await PopularFuncionarioId(pontoViewModel);
+                       
 
-            
             if (ModelState.IsValid)
             {
                 await _pontoService.Atualizar(_mapper.Map<Ponto>(pontoViewModel));
@@ -147,11 +149,24 @@ namespace Dev.EasyPonto.Controllers
             return ponto;
         }
 
-        private async Task<PontoViewModel> PopularFuncionario(PontoViewModel ponto)
+        private async Task<PontoViewModel> PopularFuncionarios(PontoViewModel ponto)
         {
             ponto.Funcionarios = _mapper.Map<IEnumerable<FuncionarioViewModel>>(await _funcionarioRepository.ObterTodos());
+
             return ponto;
         }
+
+        private async Task<PontoViewModel> PopularFuncionarioId(PontoViewModel ponto)
+        {
+            var pontoAtual = _mapper.Map<PontoViewModel>(await _pontoRepository.ObterPontoFuncionario(ponto.Id));
+
+
+            ponto.FuncionarioId = pontoAtual.FuncionarioId;
+
+            return ponto;
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
