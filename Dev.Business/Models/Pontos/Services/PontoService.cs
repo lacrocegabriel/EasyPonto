@@ -11,8 +11,7 @@ namespace Dev.Business.Models.Pontos.Services
     public class PontoService : BaseService, IPontoService
     {
         private readonly IPontoRepository _pontoRepository;
-        private readonly IFuncionarioRepository _funcionarioRepository;
-
+        
         public PontoService(IPontoRepository pontoRepository,
                             IFuncionarioRepository funcionarioRepository,
                             INotificador notificador) : base(notificador)
@@ -50,8 +49,13 @@ namespace Dev.Business.Models.Pontos.Services
             if (ponto.DataPonto >= pontoAtual.DataPonto)
             {
                 var pontos = await _pontoRepository.Buscar(p => p.DataPonto >= ponto.DataPonto && p.Id != ponto.Id && p.FuncionarioId == ponto.FuncionarioId);
-                Notificar("Operação não permitida! Há um ou mais pontos com data superior a informada!");
-                if (pontos.Any()) return true;
+
+                if (pontos.Any())
+                {
+                    Notificar("Operação não permitida! Há um ou mais pontos com data superior a informada!");
+                    return true;
+                }
+                
             }
             else
             {
